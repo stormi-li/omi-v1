@@ -4,6 +4,7 @@ import (
 	"context"
 	"strconv"
 	"strings"
+	"time"
 
 	"math/rand"
 
@@ -61,6 +62,17 @@ func (searcher *Searcher) SearchByLoadBalancing(serverName string) (string, map[
 	}
 	selectIndex := rand.Intn(len(addressPool))
 	return addressPool[selectIndex], dataPool[selectIndex]
+}
+
+func (searcher *Searcher) SearchAndListen(serverName string, handler func(address string, data map[string]string)) {
+	address, data := "", map[string]string{}
+	for {
+		if !searcher.IsAlive(serverName, address) {
+			address, data = searcher.SearchByLoadBalancing(serverName)
+			handler(address, data)
+		}
+		time.Sleep(config_expire_time)
+	}
 }
 
 func split(address string) []string {

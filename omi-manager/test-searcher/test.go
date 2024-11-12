@@ -15,7 +15,7 @@ func main() {
 		Addr:     redisAddr,
 		Password: password,
 	}).NewSearcher()
-	address, data := searcher.SearchByLoadBalancing("mysql")
-	fmt.Println(address, data)
-	fmt.Println(searcher.IsAlive("mysql", address))
+	searcher.SearchAndListen("mysql", func(address string, data map[string]string) {
+		fmt.Println(address)
+	})
 }

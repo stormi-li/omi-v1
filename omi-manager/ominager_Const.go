@@ -3,7 +3,7 @@ package omiclient
 import "time"
 
 const namespace_separator = ":"
-const const_expireTime = 2 * time.Second
+const config_expire_time = 2 * time.Second
 
 const Prefix_Config = "stormi:config:"
 const Prefix_Server = "stormi:server:"

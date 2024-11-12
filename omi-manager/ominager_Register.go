@@ -27,8 +27,8 @@ func (register *Register) Register(address string) {
 	go func() {
 		for {
 			key := register.namespace + register.serverName + namespace_separator + register.address
-			register.redisClient.Set(register.ctx, key, jsonStrData, const_expireTime)
-			time.Sleep(const_expireTime / 2)
+			register.redisClient.Set(register.ctx, key, jsonStrData, config_expire_time)
+			time.Sleep(config_expire_time / 2)
 		}
 	}()
 	log.Println("register server for", register.serverName+"["+register.address+"]", "is starting")

@@ -12,21 +12,20 @@ var redisAddr = "118.25.196.166:3934"
 var password = "12982397StrongPassw0rd"
 
 func main() {
-	server()
 }
 
-func monitor() {
+func Monitor() {
 	c := omi.NewMonitor(&redis.Options{Addr: redisAddr, Password: password})
 	c.Listen("118.25.196.166:9998")
 }
 
-func proxy() {
+func Proxy() {
 	omiweb := omi.NewWebClient(&redis.Options{Addr: redisAddr, Password: password})
 	ps := omiweb.NewProxyServer("http代理")
 	ps.StartHttpProxy("118.25.196.166:80")
 }
 
-func server() {
+func Server() {
 	serverManager := omi.NewServerManager(&redis.Options{Addr: redisAddr, Password: password})
 	register := serverManager.NewRegister("hello_server", 1)
 
@@ -39,7 +38,7 @@ func server() {
 	})
 }
 
-func web() {
+func Web() {
 	web := omi.NewWebClient(&redis.Options{Addr: redisAddr, Password: password})
 	web.GenerateTemplate()
 	webServer := web.NewWebServer("118.25.196.166", 1)
