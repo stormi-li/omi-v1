@@ -5,12 +5,12 @@ import (
 	"net/http"
 	"strings"
 
-	omiclient "github.com/stormi-li/omi-v1/omi-manager"
+	ominager "github.com/stormi-li/omi-v1/omi-manager"
 )
 
 type ProxyServer struct {
 	router       *router
-	omiWebClient *omiclient.Client
+	omiWebClient *ominager.Client
 	serverName   string
 	cache        *fileCache
 }

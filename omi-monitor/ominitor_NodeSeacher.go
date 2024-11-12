@@ -6,16 +6,16 @@ import (
 	"net/http"
 	"strings"
 
-	omiclient "github.com/stormi-li/omi-v1/omi-manager"
+	ominager "github.com/stormi-li/omi-v1/omi-manager"
 )
 
 type NodeSearcher struct {
-	serverSearcher *omiclient.Searcher
-	webSearcher    *omiclient.Searcher
-	configSearcher *omiclient.Searcher
+	serverSearcher *ominager.Searcher
+	webSearcher    *ominager.Searcher
+	configSearcher *ominager.Searcher
 }
 
-func NewManager(serverSearcher *omiclient.Searcher, webSearcher *omiclient.Searcher, configSearcher *omiclient.Searcher) *NodeSearcher {
+func NewManager(serverSearcher *ominager.Searcher, webSearcher *ominager.Searcher, configSearcher *ominager.Searcher) *NodeSearcher {
 	return &NodeSearcher{
 		serverSearcher: serverSearcher,
 		webSearcher:    webSearcher,

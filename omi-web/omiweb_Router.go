@@ -6,11 +6,11 @@ import (
 	"sync"
 	"time"
 
-	omiclient "github.com/stormi-li/omi-v1/omi-manager"
+	ominager "github.com/stormi-li/omi-v1/omi-manager"
 )
 
 type router struct {
-	searcher   *omiclient.Searcher
+	searcher   *ominager.Searcher
 	addressMap map[string][]string
 	mutex      sync.Mutex
 }
@@ -31,7 +31,7 @@ func (router *router) refresh() {
 	router.mutex.Unlock()
 }
 
-func newRouter(searcher *omiclient.Searcher) *router {
+func newRouter(searcher *ominager.Searcher) *router {
 	router := router{
 		searcher:   searcher,
 		addressMap: map[string][]string{},

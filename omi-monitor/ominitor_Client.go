@@ -7,13 +7,13 @@ import (
 	"os"
 	"strings"
 
-	omiclient "github.com/stormi-li/omi-v1/omi-manager"
+	ominager "github.com/stormi-li/omi-v1/omi-manager"
 )
 
 type Client struct {
-	serverSearcher *omiclient.Searcher
-	webSearcher    *omiclient.Searcher
-	configSearcher *omiclient.Searcher
+	serverSearcher *ominager.Searcher
+	webSearcher    *ominager.Searcher
+	configSearcher *ominager.Searcher
 }
 
 //go:embed src/*

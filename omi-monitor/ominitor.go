@@ -1,8 +1,8 @@
 package ominitor
 
-import omiclient "github.com/stormi-li/omi-v1/omi-manager"
+import ominager "github.com/stormi-li/omi-v1/omi-manager"
 
-func NewClient(serverSearcher *omiclient.Searcher, webSearcher *omiclient.Searcher, configSearcher *omiclient.Searcher) *Client {
+func NewClient(serverSearcher *ominager.Searcher, webSearcher *ominager.Searcher, configSearcher *ominager.Searcher) *Client {
 	return &Client{
 		serverSearcher: serverSearcher,
 		webSearcher:    webSearcher,

@@ -1,4 +1,4 @@
-package omiclient
+package ominager
 
 import "time"
 

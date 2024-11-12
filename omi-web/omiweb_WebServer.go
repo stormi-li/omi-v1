@@ -8,14 +8,14 @@ import (
 	"strings"
 
 	"github.com/go-redis/redis/v8"
-	omiclient "github.com/stormi-li/omi-v1/omi-manager"
+	ominager "github.com/stormi-li/omi-v1/omi-manager"
 )
 
 type WebServer struct {
 	router          *router
 	redisClient     *redis.Client
-	omiWebClient    *omiclient.Client
-	omiServerClient *omiclient.Client
+	omiWebClient    *ominager.Client
+	omiServerClient *ominager.Client
 	serverName      string
 	weight          int
 	embeddedSource  embed.FS
@@ -23,7 +23,7 @@ type WebServer struct {
 	cache           *fileCache
 }
 
-func newWebServer(redisClient *redis.Client, omiWebClient, omiServerClient *omiclient.Client, serverName string, weight int) *WebServer {
+func newWebServer(redisClient *redis.Client, omiWebClient, omiServerClient *ominager.Client, serverName string, weight int) *WebServer {
 	return &WebServer{
 		router:          newRouter(omiServerClient.NewSearcher()),
 		redisClient:     redisClient,
