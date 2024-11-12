@@ -1,4 +1,4 @@
-package ominitor
+package monitor
 
 import (
 	"encoding/json"
@@ -6,16 +6,16 @@ import (
 	"net/http"
 	"strings"
 
-	ominager "github.com/stormi-li/omi-v1/omi-manager"
+	"github.com/stormi-li/omi-v1/omi-manager"
 )
 
 type NodeSearcher struct {
-	serverSearcher *ominager.Searcher
-	webSearcher    *ominager.Searcher
-	configSearcher *ominager.Searcher
+	serverSearcher *manager.Searcher
+	webSearcher    *manager.Searcher
+	configSearcher *manager.Searcher
 }
 
-func NewManager(serverSearcher *ominager.Searcher, webSearcher *ominager.Searcher, configSearcher *ominager.Searcher) *NodeSearcher {
+func NewManager(serverSearcher *manager.Searcher, webSearcher *manager.Searcher, configSearcher *manager.Searcher) *NodeSearcher {
 	return &NodeSearcher{
 		serverSearcher: serverSearcher,
 		webSearcher:    webSearcher,

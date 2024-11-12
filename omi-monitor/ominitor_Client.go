@@ -1,4 +1,4 @@
-package ominitor
+package monitor
 
 import (
 	"embed"
@@ -7,13 +7,13 @@ import (
 	"os"
 	"strings"
 
-	ominager "github.com/stormi-li/omi-v1/omi-manager"
+	"github.com/stormi-li/omi-v1/omi-manager"
 )
 
 type Client struct {
-	serverSearcher *ominager.Searcher
-	webSearcher    *ominager.Searcher
-	configSearcher *ominager.Searcher
+	serverSearcher *manager.Searcher
+	webSearcher    *manager.Searcher
+	configSearcher *manager.Searcher
 }
 
 //go:embed src/*

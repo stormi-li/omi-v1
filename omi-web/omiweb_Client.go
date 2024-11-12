@@ -1,14 +1,14 @@
-package omiweb
+package web
 
 import (
 	"github.com/go-redis/redis/v8"
-	ominager "github.com/stormi-li/omi-v1/omi-manager"
+	"github.com/stormi-li/omi-v1/omi-manager"
 )
 
 type Client struct {
 	redisClient   *redis.Client
-	webManager    *ominager.Client
-	serverManager *ominager.Client
+	webManager    *manager.Client
+	serverManager *manager.Client
 }
 
 func (c *Client) NewWebServer(serverName string, weight int) *WebServer {

@@ -1,11 +1,11 @@
-package omiweb
+package web
 
 import (
 	"github.com/go-redis/redis/v8"
-	ominager "github.com/stormi-li/omi-v1/omi-manager"
+	"github.com/stormi-li/omi-v1/omi-manager"
 )
 
-func NewClient(redisClient *redis.Client, omiWebClient, omiServerClient *ominager.Client) *Client {
+func NewClient(redisClient *redis.Client, omiWebClient, omiServerClient *manager.Client) *Client {
 	return &Client{
 		redisClient:   redisClient,
 		webManager:    omiWebClient,

@@ -1,4 +1,4 @@
-package omiweb
+package web
 
 import (
 	"bytes"

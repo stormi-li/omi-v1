@@ -1,4 +1,4 @@
-package ominager
+package manager
 
 import (
 	"context"

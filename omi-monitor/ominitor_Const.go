@@ -1,4 +1,4 @@
-package ominitor
+package monitor
 
 const command_GetWebNodes = "GetWebNodes"
 const command_GetServerNodes = "GetServerNodes"

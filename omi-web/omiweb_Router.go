@@ -1,4 +1,4 @@
-package omiweb
+package web
 
 import (
 	"math/rand/v2"
@@ -6,11 +6,11 @@ import (
 	"sync"
 	"time"
 
-	ominager "github.com/stormi-li/omi-v1/omi-manager"
+	"github.com/stormi-li/omi-v1/omi-manager"
 )
 
 type router struct {
-	searcher   *ominager.Searcher
+	searcher   *manager.Searcher
 	addressMap map[string][]string
 	mutex      sync.Mutex
 }
@@ -31,7 +31,7 @@ func (router *router) refresh() {
 	router.mutex.Unlock()
 }
 
-func newRouter(searcher *ominager.Searcher) *router {
+func newRouter(searcher *manager.Searcher) *router {
 	router := router{
 		searcher:   searcher,
 		addressMap: map[string][]string{},

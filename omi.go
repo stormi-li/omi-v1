@@ -2,27 +2,27 @@ package omi
 
 import (
 	"github.com/go-redis/redis/v8"
-	ominager "github.com/stormi-li/omi-v1/omi-manager"
-	ominitor "github.com/stormi-li/omi-v1/omi-monitor"
-	omiweb "github.com/stormi-li/omi-v1/omi-web"
+	"github.com/stormi-li/omi-v1/omi-manager"
+	"github.com/stormi-li/omi-v1/omi-monitor"
+	"github.com/stormi-li/omi-v1/omi-web"
 )
 
-func NewServerManager(opts *redis.Options) *ominager.Client {
-	return ominager.NewClient(redis.NewClient(opts), ominager.Server, ominager.Prefix_Server)
+func NewServerManager(opts *redis.Options) *manager.Client {
+	return manager.NewClient(redis.NewClient(opts), manager.Server, manager.Prefix_Server)
 }
 
-func NewWebManager(opts *redis.Options) *ominager.Client {
-	return ominager.NewClient(redis.NewClient(opts), ominager.Web, ominager.Prefix_Web)
+func NewWebManager(opts *redis.Options) *manager.Client {
+	return manager.NewClient(redis.NewClient(opts), manager.Web, manager.Prefix_Web)
 }
 
-func NewConfigManager(opts *redis.Options) *ominager.Client {
-	return ominager.NewClient(redis.NewClient(opts), ominager.Config, ominager.Prefix_Config)
+func NewConfigManager(opts *redis.Options) *manager.Client {
+	return manager.NewClient(redis.NewClient(opts), manager.Config, manager.Prefix_Config)
 }
 
-func NewWebClient(opts *redis.Options) *omiweb.Client {
-	return omiweb.NewClient(redis.NewClient(opts), NewWebManager(opts), NewServerManager(opts))
+func NewWebClient(opts *redis.Options) *web.Client {
+	return web.NewClient(redis.NewClient(opts), NewWebManager(opts), NewServerManager(opts))
 }
 
-func NewMonitor(opts *redis.Options) *ominitor.Client {
-	return ominitor.NewClient(NewServerManager(opts).NewSearcher(), NewWebManager(opts).NewSearcher(), NewConfigManager(opts).NewSearcher())
+func NewMonitor(opts *redis.Options) *monitor.Client {
+	return monitor.NewClient(NewServerManager(opts).NewSearcher(), NewWebManager(opts).NewSearcher(), NewConfigManager(opts).NewSearcher())
 }

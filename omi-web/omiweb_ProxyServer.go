@@ -1,16 +1,16 @@
-package omiweb
+package web
 
 import (
 	"log"
 	"net/http"
 	"strings"
 
-	ominager "github.com/stormi-li/omi-v1/omi-manager"
+	"github.com/stormi-li/omi-v1/omi-manager"
 )
 
 type ProxyServer struct {
 	router       *router
-	omiWebClient *ominager.Client
+	omiWebClient *manager.Client
 	serverName   string
 	cache        *fileCache
 }

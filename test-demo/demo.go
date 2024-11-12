@@ -12,6 +12,7 @@ var redisAddr = "118.25.196.166:3934"
 var password = "12982397StrongPassw0rd"
 
 func main() {
+	Web()
 }
 
 func Monitor() {
