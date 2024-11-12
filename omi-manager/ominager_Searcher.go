@@ -65,7 +65,8 @@ func (searcher *Searcher) SearchByLoadBalancing(serverName string) (string, map[
 }
 
 func (searcher *Searcher) SearchAndListen(serverName string, handler func(address string, data map[string]string)) {
-	address, data := "", map[string]string{}
+	address := ""
+	var data map[string]string
 	for {
 		if !searcher.IsAlive(serverName, address) {
 			address, data = searcher.SearchByLoadBalancing(serverName)
