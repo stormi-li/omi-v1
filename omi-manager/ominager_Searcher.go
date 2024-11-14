@@ -2,6 +2,7 @@ package manager
 
 import (
 	"context"
+	"log"
 	"strconv"
 	"strings"
 	"time"
@@ -70,7 +71,14 @@ func (searcher *Searcher) SearchAndListen(serverName string, handler func(addres
 	for {
 		if !searcher.IsAlive(serverName, address) {
 			address, data = searcher.SearchByLoadBalancing(serverName)
-			handler(address, data)
+			go func() {
+				defer func() {
+					if r := recover(); r != nil {
+						log.Println(r)
+					}
+				}()
+				handler(address, data)
+			}()
 		}
 		time.Sleep(config_expire_time)
 	}
