@@ -2,21 +2,21 @@ package omi
 
 import (
 	"github.com/go-redis/redis/v8"
-	"github.com/stormi-li/omi-v1/omi-manager"
-	"github.com/stormi-li/omi-v1/omi-monitor"
-	"github.com/stormi-li/omi-v1/omi-web"
+	manager "github.com/stormi-li/omi-v1/omi-manager"
+	monitor "github.com/stormi-li/omi-v1/omi-monitor"
+	web "github.com/stormi-li/omi-v1/omi-web"
 )
 
 func NewServerManager(opts *redis.Options) *manager.Client {
-	return manager.NewClient(redis.NewClient(opts), manager.Server, manager.Prefix_Server)
+	return manager.NewServerManager(opts)
 }
 
 func NewWebManager(opts *redis.Options) *manager.Client {
-	return manager.NewClient(redis.NewClient(opts), manager.Web, manager.Prefix_Web)
+	return manager.NewWebManager(opts)
 }
 
 func NewConfigManager(opts *redis.Options) *manager.Client {
-	return manager.NewClient(redis.NewClient(opts), manager.Config, manager.Prefix_Config)
+	return manager.NewConfigManager(opts)
 }
 
 func NewWebClient(opts *redis.Options) *web.Client {
@@ -24,5 +24,5 @@ func NewWebClient(opts *redis.Options) *web.Client {
 }
 
 func NewMonitor(opts *redis.Options) *monitor.Client {
-	return monitor.NewClient(NewServerManager(opts).NewSearcher(), NewWebManager(opts).NewSearcher(), NewConfigManager(opts).NewSearcher())
+	return monitor.NewClient(opts,NewServerManager(opts).NewSearcher(), NewWebManager(opts).NewSearcher(), NewConfigManager(opts).NewSearcher())
 }

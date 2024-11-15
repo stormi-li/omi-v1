@@ -28,13 +28,13 @@ func Proxy() {
 
 func Server() {
 	serverManager := omi.NewServerManager(&redis.Options{Addr: redisAddr, Password: password})
-	register := serverManager.NewRegister("hello_server", 1)
+	register := serverManager.NewRegister("hello_server", "118.25.196.166:8081")
 
 	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Hello", r.URL.Query().Get("name"), ", welcome to use omi")
 	})
 
-	register.RegisterAndListen("118.25.196.166:8081", func(port string) {
+	register.RegisterAndListen(1, func(port string) {
 		http.ListenAndServe(port, nil)
 	})
 }

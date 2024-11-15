@@ -37,7 +37,7 @@ func (proxyServer *ProxyServer) StartHttpProxy(address string) {
 	if len(parts) < 2 || parts[1] != "80" {
 		panic("端口号必须为:80")
 	}
-	proxyServer.omiWebClient.NewRegister(proxyServer.serverName, 1).Register(address)
+	proxyServer.omiWebClient.NewRegister(proxyServer.serverName, address).Register(1)
 	log.Println("omi web server: " + proxyServer.serverName + " is running on http://" + address)
 	err := http.ListenAndServe(":"+parts[1], nil)
 	if err != nil {

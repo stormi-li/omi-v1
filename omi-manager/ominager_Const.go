@@ -12,3 +12,5 @@ const Prefix_Web = "stormi:web:"
 var Server = "Server"
 var Config = "Config"
 var Web = "Web"
+
+const command_update_weight = "update_weight"

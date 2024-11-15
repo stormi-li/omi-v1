@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/go-redis/redis/v8"
-	"github.com/stormi-li/omi-v1/omi-manager"
+	manager "github.com/stormi-li/omi-v1/omi-manager"
 )
 
 type WebServer struct {
@@ -74,7 +74,7 @@ func (webServer *WebServer) Listen(address string) {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		webServer.handleFunc(w, r)
 	})
-	webServer.omiWebClient.NewRegister(webServer.serverName, webServer.weight).Register(address)
+	webServer.omiWebClient.NewRegister(webServer.serverName, address).Register(webServer.weight)
 	log.Println("omi web server: " + webServer.serverName + " is running on http://" + address)
 	err := http.ListenAndServe(":"+strings.Split(address, ":")[1], nil)
 	if err != nil {

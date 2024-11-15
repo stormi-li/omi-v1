@@ -29,8 +29,15 @@ func (searcher *Searcher) SearchByName(serverName string) map[string]map[string]
 }
 
 func (searcher *Searcher) IsAlive(serverName string, address string) bool {
-	data, _ := searcher.redisClient.Get(searcher.ctx, searcher.namespace+serverName+namespace_separator+address).Result()
-	return data != ""
+	return searcher.GetData(serverName, address) != nil
+}
+
+func (searcher *Searcher) GetData(serverName string, address string) map[string]string {
+	dataStr, _ := searcher.redisClient.Get(searcher.ctx, searcher.namespace+serverName+namespace_separator+address).Result()
+	if dataStr == "" {
+		return nil
+	}
+	return jsonStrToMap(dataStr)
 }
 
 func (searcher *Searcher) SearchAllServers() map[string]map[string]map[string]string {

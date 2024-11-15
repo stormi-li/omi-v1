@@ -11,8 +11,8 @@ var redisAddr = "118.25.196.166:3934"
 var password = "12982397StrongPassw0rd"
 
 func main() {
-	searcher := omi.NewServerManager(&redis.Options{Addr: "localhost:6379"}).NewSearcher()
-	searcher.SearchAndListen("hello_server", func(address string, data map[string]string) {
-		fmt.Println(address)
+	searcher := omi.NewConfigManager(&redis.Options{Addr: redisAddr, Password: password}).NewSearcher()
+	searcher.SearchAndListen("redis", func(address string, data map[string]string) {
+		fmt.Println(address, data)
 	})
 }

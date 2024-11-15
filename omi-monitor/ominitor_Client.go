@@ -7,13 +7,15 @@ import (
 	"os"
 	"strings"
 
-	"github.com/stormi-li/omi-v1/omi-manager"
+	"github.com/go-redis/redis/v8"
+	manager "github.com/stormi-li/omi-v1/omi-manager"
 )
 
 type Client struct {
 	serverSearcher *manager.Searcher
 	webSearcher    *manager.Searcher
 	configSearcher *manager.Searcher
+	opts           *redis.Options
 }
 
 //go:embed src/*
@@ -23,13 +25,13 @@ func (c *Client) Listen(address string) {
 	c.listen(address, true)
 }
 
-// func (c *Client) Develop(address string) {
-// 	c.listen(address, false)
-// }
+func (c *Client) Develop(address string) {
+	c.listen(address, false)
+}
 
 func (c *Client) listen(address string, embedModel bool) {
 
-	manager := NewManager(c.serverSearcher, c.webSearcher, c.configSearcher)
+	manager := NewManager(c.opts, c.serverSearcher, c.webSearcher, c.configSearcher)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		part := strings.Split(r.URL.Path, "/")
