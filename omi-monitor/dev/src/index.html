@@ -133,6 +133,32 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+
+        .table_row .details {
+            flex: 4;
+            display: none;
+            margin-top: 8px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .button {
+            padding: 5px 10px;
+            margin: 0 2px;
+            border-radius: 4px;
+            border: 1px solid #007bff;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .details-button {
+            margin-left: 8px;
+        }
     </style>
 </head>
 
@@ -216,6 +242,10 @@
                                 onkeypress="handleKeyPress(event,'${currentType}', '${name}', '${address}', this.value)" 
                                 onblur="handleBlur('${currentType}', '${name}', '${address}', this.value)">
                             </span>
+                            <button class="button details-button" onclick="toggleDetails('${currentType}', '${name}', '${address}', this)">显示详情</button>
+                        </div>
+                        <div class="details-row" style="display: none; padding-left: 16px; background-color: #f0f8ff;">
+                            <div class="details" style="margin: 8px 0; font-size: 14px; color: #333;"></div>
                         </div>
                     `;
                     dataContainer.innerHTML += rowHTML;
@@ -230,7 +260,7 @@
             if (event.key === 'Enter') {
                 updateWeight(type, name, address, newWeight);
                 event.target.blur()
-            } 
+            }
         }
         function handleBlur(type, name, address, newWeight) {
             updateWeight(type, name, address, newWeight);
@@ -248,6 +278,34 @@
             }).catch(error => {
                 console.error('Error:', error);
             });
+        }
+
+        function toggleDetails(type, name, address, buttonElement) {
+            const detailsRow = buttonElement.parentElement.nextElementSibling; // 获取紧邻的 details-row
+            const detailsContainer = detailsRow.querySelector('.details');
+
+            if (detailsRow.style.display === 'none') {
+                // 显示详情
+                const path = `GetDetails?type=${type}&name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}`;
+                fetch(path, { method: 'GET' })
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
+                        return response.json();
+                    })
+                    .then(details => {
+                        // 格式化 JSON 数据并插入 <pre> 标签中
+                        detailsContainer.innerHTML = `<pre>${JSON.stringify(details, null, 2)}</pre>`;
+                        detailsRow.style.display = 'block'; // 显示 details-row
+                        buttonElement.textContent = '取消显示'; // 切换按钮文本
+                    })
+                    .catch(error => {
+                        console.error('There has been a problem with your fetch operation:', error);
+                    });
+            } else {
+                // 隐藏详情
+                detailsRow.style.display = 'none';
+                buttonElement.textContent = '显示详情'; // 切换按钮文本
+            }
         }
     </script>
 </body>

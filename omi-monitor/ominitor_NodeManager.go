@@ -60,6 +60,13 @@ func (manager *NodeManager) Handler(w http.ResponseWriter, r *http.Request) {
 		weight, _ := strconv.Atoi(r.URL.Query().Get("weight"))
 		manager.updateWeight(serverType, name, address, weight)
 	}
+	if parts[0] == command_GetDetails {
+		serverType := r.URL.Query().Get("type")
+		name := r.URL.Query().Get("name")
+		address := r.URL.Query().Get("address")
+		manager.getDetails(serverType, name, address)
+		w.Write([]byte(mapToJsonStr(manager.getDetails(serverType, name, address))))
+	}
 }
 
 func (nodeManager *NodeManager) updateWeight(serverType, name, address string, weight int) {
@@ -76,6 +83,19 @@ func (nodeManager *NodeManager) updateWeight(serverType, name, address string, w
 	register.UpdateWeight(weight)
 }
 
+func (nodeManager *NodeManager) getDetails(serverType, name, address string) map[string]string {
+	if serverType == manager.Config {
+		return nodeManager.configSearcher.GetData(name, address)
+	}
+	if serverType == manager.Web {
+		return nodeManager.configSearcher.GetData(name, address)
+	}
+	if serverType == manager.Server {
+		return nodeManager.configSearcher.GetData(name, address)
+	}
+	return nodeManager.configSearcher.GetData(name, address)
+}
+
 func toJsonStr(nodes map[string]map[string]map[string]string) string {
 	res := [][]string{}
 	for name, addresses := range nodes {
@@ -88,6 +108,11 @@ func toJsonStr(nodes map[string]map[string]map[string]string) string {
 }
 
 func sliceToJsonStr(data [][]string) string {
+	jsonStr, _ := json.MarshalIndent(data, " ", "  ")
+	return string(jsonStr)
+}
+
+func mapToJsonStr(data map[string]string) string {
 	jsonStr, _ := json.MarshalIndent(data, " ", "  ")
 	return string(jsonStr)
 }

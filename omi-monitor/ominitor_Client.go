@@ -18,7 +18,7 @@ type Client struct {
 	opts           *redis.Options
 }
 
-//go:embed src/*
+//go:embed dev/src/*
 var embedSource embed.FS
 
 func (c *Client) Listen(address string) {
@@ -44,11 +44,12 @@ func (c *Client) listen(address string, embedModel bool) {
 		if r.URL.Path == "/" {
 			filePath = "/index.html"
 		}
-		filePath = "src" + filePath
 		var data []byte
 		if embedModel {
+			filePath = "dev/src" + filePath
 			data, _ = embedSource.ReadFile(filePath)
 		} else {
+			filePath = "src" + filePath
 			data, _ = os.ReadFile(filePath)
 		}
 		w.Write(data)
